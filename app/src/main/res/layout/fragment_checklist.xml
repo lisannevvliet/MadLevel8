@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.NotificationsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btnDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@android:color/darker_gray"
+                    android:text="Button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:text="Clear"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnDate"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvFruits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/fruits"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnDate" />
+
+                <TextView
+                    android:id="@+id/tvFruitMeasurement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fruits_measurement"
+                    app:layout_constraintStart_toStartOf="@+id/tvFruits"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFruits" />
+
+                <CheckBox
+                    android:id="@+id/cbFruit1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbFruit2"
+                    app:layout_constraintTop_toTopOf="@+id/tvFruits" />
+
+                <CheckBox
+                    android:id="@+id/cbFruit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbFruit3"
+                    app:layout_constraintTop_toTopOf="@+id/tvFruits" />
+
+                <CheckBox
+                    android:id="@+id/cbFruit3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvFruits" />
+
+                <TextView
+                    android:id="@+id/tvVegetables"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/vegetables"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFruitMeasurement" />
+
+                <TextView
+                    android:id="@+id/tvVegetablesMeasurement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vegetables_measurement"
+                    app:layout_constraintStart_toStartOf="@+id/tvVegetables"
+                    app:layout_constraintTop_toBottomOf="@+id/tvVegetables" />
+
+                <CheckBox
+                    android:id="@+id/cbVegetables1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbVegetables2"
+                    app:layout_constraintTop_toTopOf="@+id/tvVegetables" />
+
+                <CheckBox
+                    android:id="@+id/cbVegetables2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbVegetables3"
+                    app:layout_constraintTop_toTopOf="@+id/tvVegetables" />
+
+                <CheckBox
+                    android:id="@+id/cbVegetables3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvVegetables" />
+
+                <TextView
+                    android:id="@+id/tvWholeGrains"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/whole_grains"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvVegetablesMeasurement" />
+
+                <TextView
+                    android:id="@+id/tvWholeGrainsMeasurement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/whole_grains_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbWholeGrains1"
+                    app:layout_constraintStart_toStartOf="@+id/tvWholeGrains"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWholeGrains" />
+
+                <CheckBox
+                    android:id="@+id/cbWholeGrains1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbWholeGrains2"
+                    app:layout_constraintTop_toTopOf="@+id/tvWholeGrains" />
+
+                <CheckBox
+                    android:id="@+id/cbWholeGrains2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbWholeGrains3"
+                    app:layout_constraintTop_toTopOf="@+id/tvWholeGrains" />
+
+                <CheckBox
+                    android:id="@+id/cbWholeGrains3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvWholeGrains" />
+
+                <TextView
+                    android:id="@+id/tvLegumes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/legumes"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWholeGrainsMeasurement" />
+
+                <TextView
+                    android:id="@+id/tvLegumesMeasurement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/legumes_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbLegumes1"
+                    app:layout_constraintStart_toStartOf="@+id/tvLegumes"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLegumes" />
+
+                <CheckBox
+                    android:id="@+id/cbLegumes1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbLegumes2"
+                    app:layout_constraintTop_toTopOf="@+id/tvLegumes" />
+
+                <CheckBox
+                    android:id="@+id/cbLegumes2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvLegumes" />
+
+                <TextView
+                    android:id="@+id/tvPlantbasedDairy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/plantbased_dairy"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLegumesMeasurement" />
+
+                <TextView
+                    android:id="@+id/tvPlantbasedDairyMeasurement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/plantbased_dairy_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbPlantbasedDairy1"
+                    app:layout_constraintStart_toStartOf="@+id/tvPlantbasedDairy"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlantbasedDairy" />
+
+                <CheckBox
+                    android:id="@+id/cbPlantbasedDairy1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvPlantbasedDairy" />
+
+                <TextView
+                    android:id="@+id/tvNutsSeedsPeanutsAvocado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/nuts_seeds_peanuts_avocado"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPlantbasedDairyMeasurement" />
+
+                <TextView
+                    android:id="@+id/tvNutsSeedsPeanutsAvocadoMeasurement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/nuts_seeds_peanuts_avocado_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbNutsSeedsPeanutsAvocado1"
+                    app:layout_constraintStart_toStartOf="@+id/tvNutsSeedsPeanutsAvocado"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNutsSeedsPeanutsAvocado" />
+
+                <CheckBox
+                    android:id="@+id/cbNutsSeedsPeanutsAvocado1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbNutsSeedsPeanutsAvocado2"
+                    app:layout_constraintTop_toTopOf="@+id/tvNutsSeedsPeanutsAvocado" />
+
+                <CheckBox
+                    android:id="@+id/cbNutsSeedsPeanutsAvocado2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvNutsSeedsPeanutsAvocado" />
+
+                <TextView
+                    android:id="@+id/tvFlaxSeedsChiaSeeds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/flax_seeds_chia_seeds"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNutsSeedsPeanutsAvocadoMeasurement" />
+
+                <TextView
+                    android:id="@+id/tvFlaxSeedsChiaSeedsMeasurement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/flax_seeds_chia_seeds_measurement"
+                    app:layout_constraintStart_toStartOf="@+id/tvNutsSeedsPeanutsAvocado"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFlaxSeedsChiaSeeds" />
+
+                <CheckBox
+                    android:id="@+id/cbFlaxSeedsChiaSeeds1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvFlaxSeedsChiaSeeds" />
+
+                <TextView
+                    android:id="@+id/tvSupplements"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/supplements"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFlaxSeedsChiaSeedsMeasurement" />
+
+                <TextView
+                    android:id="@+id/tvSupplementsMeasurement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/supplements_measurement"
+                    app:layout_constraintStart_toStartOf="@+id/tvSupplements"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSupplements" />
+
+                <CheckBox
+                    android:id="@+id/cbSupplements1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbSupplements2"
+                    app:layout_constraintTop_toTopOf="@+id/tvSupplements" />
+
+                <CheckBox
+                    android:id="@+id/cbSupplements2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbSupplements3"
+                    app:layout_constraintTop_toTopOf="@+id/tvSupplements" />
+
+                <CheckBox
+                    android:id="@+id/cbSupplements3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvSupplements" />
+
+                <TextView
+                    android:id="@+id/tvDrinks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/drinks"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSupplementsMeasurement" />
+
+                <TextView
+                    android:id="@+id/tvDrinksMeasurement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/drinks_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbDrinks1"
+                    app:layout_constraintStart_toStartOf="@+id/tvDrinks"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDrinks" />
+
+                <CheckBox
+                    android:id="@+id/cbDrinks1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbDrinks2"
+                    app:layout_constraintTop_toTopOf="@+id/tvDrinks" />
+
+                <CheckBox
+                    android:id="@+id/cbDrinks2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbDrinks3"
+                    app:layout_constraintTop_toTopOf="@+id/tvDrinks" />
+
+                <CheckBox
+                    android:id="@+id/cbDrinks3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvDrinks" />
+
+                <CheckBox
+                    android:id="@+id/cbDrinks4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="64dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cbDrinks5"
+                    app:layout_constraintTop_toBottomOf="@+id/cbDrinks1" />
+
+                <CheckBox
+                    android:id="@+id/cbDrinks5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/cbDrinks6"
+                    app:layout_constraintTop_toBottomOf="@+id/cbDrinks2" />
+
+                <CheckBox
+                    android:id="@+id/cbDrinks6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cbDrinks3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Vegable</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_checklist">Checklist</string>
+    <string name="scan">Scan</string>
+    <string name="fruits">Fruits</string>
+    <string name="fruits_measurement">1 piece or 100 grams</string>
+    <string name="vegetables">Vegetables</string>
+    <string name="vegetables_measurement">100 grams</string>
+    <string name="whole_grains">Whole grains</string>
+    <string name="whole_grains_measurement">2 slices of bread or 50 grams of raw grains</string>
+    <string name="legumes">Legumes</string>
+    <string name="legumes_measurement">80 grams of legumes or ½ meat substitute</string>
+    <string name="plantbased_dairy">Plant-based dairy</string>
+    <string name="plantbased_dairy_measurement">1 glass or bowl of enriched plant-based dairy</string>
+    <string name="nuts_seeds_peanuts_avocado">Nuts, seeds, peanuts and avocado</string>
+    <string name="nuts_seeds_peanuts_avocado_measurement">30 grams of nuts or seeds, 2 servings of peanut butter or ½ avocado</string>
+    <string name="flax_seeds_chia_seeds">Flax seeds and chia seeds</string>
+    <string name="flax_seeds_chia_seeds_measurement">1 tablespoon</string>
+    <string name="supplements">Supplements</string>
+    <string name="supplements_measurement">Depending on personal needs</string>
+    <string name="drinks">Drinks</string>
+    <string name="drinks_measurement">1 glass or mug of 250 milliliters of water, tea or coffee</string>
+</resources>
