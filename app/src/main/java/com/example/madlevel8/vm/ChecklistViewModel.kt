@@ -61,7 +61,6 @@ class ChecklistViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    // Clear the database. Only for testing purposes, will be deleted later.
     fun deleteAllChecklists() {
         CoroutineScope(Dispatchers.IO).launch { checklistRepository.deleteAllChecklists() }
     }

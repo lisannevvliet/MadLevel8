@@ -87,15 +87,6 @@ class ChecklistFragment : Fragment() {
             // Save the checklist of the previously selected date.
             updateChecklist()
         }
-
-        // Clear the database and deselect all checkboxes. Only for testing purposes, will be deleted later.
-        binding.btnClear.setOnClickListener {
-            viewModel.deleteAllChecklists()
-
-            for (checkbox in checkboxes) {
-                checkbox.isChecked = false
-            }
-        }
     }
 
     // Save the checklist of the selected date before leaving the fragment.

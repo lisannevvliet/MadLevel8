@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class Checklist(
 
     @PrimaryKey
-    val date: String = "",
-    val selected: ArrayList<Boolean> = arrayListOf()
+    val date: String,
+    val selected: ArrayList<Boolean>
 )
