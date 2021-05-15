@@ -17,7 +17,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         CoroutineScope(Dispatchers.Main).launch { productRepository.getProducts("%$name%") }
     }
 
-    fun getProducts(name: String) {
+    fun getAllProducts(name: String) {
         CoroutineScope(Dispatchers.Main).launch { productRepository.getProducts("%$name%") }
     }
 
