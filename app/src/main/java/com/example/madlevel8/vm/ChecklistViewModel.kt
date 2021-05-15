@@ -34,7 +34,7 @@ class ChecklistViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    // Add, update or remove the selected checkboxes with the corresponding date.
+    // Add, update or delete the selected checkboxes with the corresponding date.
     fun updateChecklist(checklist: Checklist) {
         CoroutineScope(Dispatchers.IO).launch {
             // Check if there is already an entry of the specified date in the database.
@@ -61,6 +61,7 @@ class ChecklistViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    // Delete all checklists in the database.
     fun deleteAllChecklists() {
         CoroutineScope(Dispatchers.IO).launch { checklistRepository.deleteAllChecklists() }
     }

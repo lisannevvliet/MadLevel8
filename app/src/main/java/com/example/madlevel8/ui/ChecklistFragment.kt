@@ -53,7 +53,7 @@ class ChecklistFragment : Fragment() {
             )
         )
 
-        // Set the text of the button to today's date.
+        // Set the text of the date button to today's date.
         val today = SimpleDateFormat("d MMMM yyyy", Locale.US).format(calendar.time)
         binding.btnDate.text = today
 
@@ -66,7 +66,7 @@ class ChecklistFragment : Fragment() {
             calendar.set(Calendar.MONTH, monthOfYear)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            // Set the text of the button to the selected date.
+            // Set the text of the date button to the selected date.
             val date = SimpleDateFormat("d MMMM yyyy", Locale.US).format(calendar.time)
             binding.btnDate.text = date
 
@@ -74,7 +74,7 @@ class ChecklistFragment : Fragment() {
             viewModel.getChecklist(date, checkboxes)
         }
 
-        // Upon a click on the button, show the DatePickerDialog and point to today's date.
+        // Upon a click on the date button, show the DatePickerDialog and point to today's date.
         binding.btnDate.setOnClickListener {
             activity?.let { it ->
                 val year = calendar.get(Calendar.YEAR)
@@ -96,6 +96,13 @@ class ChecklistFragment : Fragment() {
         updateChecklist()
     }
 
+    // .....................................................................
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
+    }
+
     // Add, update or remove the selected checkboxes with the corresponding date.
     private fun updateChecklist() {
         val selected = ArrayList<Boolean>()
@@ -105,7 +112,7 @@ class ChecklistFragment : Fragment() {
             selected.add(checkbox.isChecked)
         }
 
-        // Save the date that is displayed in the button.
+        // Save the date that is displayed in the date button.
         val date = binding.btnDate.text as String
 
         viewModel.updateChecklist(Checklist(date, selected))

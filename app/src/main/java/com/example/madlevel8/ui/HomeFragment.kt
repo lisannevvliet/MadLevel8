@@ -18,16 +18,12 @@ import com.example.madlevel8.R
 import com.example.madlevel8.adapter.ProductAdapter
 import com.example.madlevel8.databinding.FragmentHomeBinding
 import com.example.madlevel8.model.Product
-import com.example.madlevel8.repository.ProductRepository
 import com.example.madlevel8.vm.ProductViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.integration.android.IntentIntegrator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-const val bundleKey= ""
+// Initialize the bundle and request key for the fragment result.
+const val bundleKey = ""
 const val requestKey = ""
 
 class HomeFragment : Fragment() {
@@ -36,11 +32,9 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ProductViewModel by viewModels()
-    private lateinit var productRepository: ProductRepository
 
     private val products = arrayListOf<Product>()
     private val backupProducts = arrayListOf<Product>()
-    private val productAdapter = ProductAdapter(products, ::onClick)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment.
@@ -51,11 +45,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.chipGroup.visibility =  View.INVISIBLE
+        // Hide the no products found error by default.
+        binding.tvNoProductsFound.visibility =  View.INVISIBLE
 
-        // Initialize the ProductRepository.
-        productRepository = ProductRepository(requireContext())
-
+        // Show the barcode scanner upon a click on the scan button.
         binding.btnScan.setOnClickListener {
             val integrator = IntentIntegrator.forSupportFragment(this)
 
@@ -67,59 +60,90 @@ class HomeFragment : Fragment() {
             integrator.initiateScan()
         }
 
-        binding.floatingActionButton.setOnClickListener {
+        // Navigate to the AddProductFragment upon a click on the floating action button.
+        binding.fabAdd.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_addProductFragment)
         }
 
-        binding.tvNothingFound.visibility =  View.INVISIBLE
-
-
         // Initialize the recycler view with a linear layout manager, adapter.
         binding.rvProducts.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.rvProducts.adapter = productAdapter
-        createItemTouchHelper().attachToRecyclerView(binding.rvProducts)
+        binding.rvProducts.adapter = ProductAdapter(products)
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        // Attach the ItemTouchHelper to recognize left swipes within the RecyclerView.
+        itemTouchHelper().attachToRecyclerView(binding.rvProducts)
+
+        // Observe the LiveData with the search results and update the RecyclerView when it changes.
+        viewModel.products.observe(viewLifecycleOwner, {
+            products.clear()
+            products.addAll(it)
+            ProductAdapter(products).notifyDataSetChanged()
+
+            if (products.isNotEmpty()) {
+                binding.tvNoProductsFound.visibility = View.INVISIBLE
+            } else {
+                binding.tvNoProductsFound.visibility = View.VISIBLE
+            }
+        })
+
+        // Show the search results upon a submitted search query.
+        binding.svProducts.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                CoroutineScope(Dispatchers.Main).launch {
-                    val products = withContext(Dispatchers.IO) { productRepository.getProducts("%$query%") }
+                // Retrieve all products which match the search query and update the LiveData.
+                viewModel.getProducts(query)
 
-                    this@HomeFragment.products.clear()
-                    this@HomeFragment.products.addAll(products)
+                // Set the fragment result to the search query.
+                setFragmentResult(requestKey, bundleOf(bundleKey to query))
 
-                    if (products.isEmpty()) {
-
-                        setFragmentResult(requestKey, bundleOf(bundleKey to query))
-
-                        binding.tvNothingFound.visibility =  View.VISIBLE
-                        binding.chipGroup.visibility =  View.INVISIBLE
-                    } else {
-                        binding.tvNothingFound.visibility =  View.INVISIBLE
-                        binding.chipGroup.visibility =  View.VISIBLE
-                    }
-
-                    productAdapter.notifyDataSetChanged()
-                }
                 return false
             }
 
-            // Do not update the RecyclerView while typing.
+            // Clear the search results when the search query is changed.
             override fun onQueryTextChange(newText: String): Boolean {
+                // Hide the no products found errors again.
+                binding.tvNoProductsFound.visibility = View.INVISIBLE
+
+                // Uncheck the vegan chip.
+                binding.cVegan.isChecked = false
+
+                // Clear the RecyclerView.
+                products.clear()
+                ProductAdapter(products).notifyDataSetChanged()
+
                 return false
             }
         })
+
+        // Update the search results according to whether the vegan chip is selected.
+        binding.cVegan.setOnCheckedChangeListener { _, checked ->
+            // Retrieve the search query.
+            val query = binding.svProducts.query
+
+            if (query.isNotBlank()) {
+                if (checked) {
+                    // Retrieve all vegan products which match the search query and update the LiveData.
+                    viewModel.getVeganProducts(query.toString())
+                } else {
+                    // Retrieve all products which match the search query and update the LiveData.
+                    viewModel.getProducts(query.toString())
+                }
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
         if (result.contents != null) {
-            Snackbar.make(binding.btnScan, "Scanned: " + result.contents, Snackbar.LENGTH_LONG).show()
-        } else {
-            Snackbar.make(binding.btnScan, "Cancelled", Snackbar.LENGTH_LONG).show()
+            val barcode = result.contents.toLong()
+
+            // Retrieve all products which match the barcode and update the LiveData.
+            viewModel.getBarcode(barcode)
+
+            setFragmentResult(requestKey, bundleOf(bundleKey to result.contents))
         }
     }
 
+    // .....................................................................
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -127,7 +151,7 @@ class HomeFragment : Fragment() {
     }
 
     // Enable touch behavior (like swipe and move) on each ViewHolder, and use callbacks to signal when a user is performing these actions.
-    private fun createItemTouchHelper(): ItemTouchHelper {
+    private fun itemTouchHelper(): ItemTouchHelper {
 
         // Create the ItemTouch helper, only enable left swipe.
         val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -145,7 +169,7 @@ class HomeFragment : Fragment() {
                 backupProducts.clear()
                 backupProducts.addAll(products)
                 products.removeAt(position)
-                productAdapter.notifyDataSetChanged()
+                ProductAdapter(products).notifyDataSetChanged()
 
                 Snackbar.make(binding.rvProducts, R.string.successful, Snackbar.LENGTH_LONG)
                     .addCallback(object : Snackbar.Callback() {
@@ -154,7 +178,7 @@ class HomeFragment : Fragment() {
                                 DISMISS_EVENT_ACTION -> {
                                     products.clear()
                                     products.addAll(backupProducts)
-                                    productAdapter.notifyDataSetChanged()
+                                    ProductAdapter(products).notifyDataSetChanged()
                                 } else -> {
                                 viewModel.deleteProduct(productToDelete)
                             }
@@ -166,9 +190,5 @@ class HomeFragment : Fragment() {
             }
         }
         return ItemTouchHelper(callback)
-    }
-
-    private fun onClick(product: Product) {
-        Snackbar.make(binding.rvProducts, "This product is: ${product.name}", Snackbar.LENGTH_LONG).show()
     }
 }

@@ -4,16 +4,29 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.example.madlevel8.model.Product
 import com.example.madlevel8.repository.ProductRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
 
     private val productRepository = ProductRepository(application.applicationContext)
 
+    // Retrieve the LiveData with the search results from the ProductRepository.
+    val products = productRepository.products
+
     fun getProducts(name: String) {
-        CoroutineScope(Dispatchers.IO).launch { productRepository.getProducts(name) }
+        CoroutineScope(Dispatchers.Main).launch { productRepository.getProducts("%$name%") }
+    }
+
+    fun getProducts(name: String) {
+        CoroutineScope(Dispatchers.Main).launch { productRepository.getProducts("%$name%") }
+    }
+
+    fun getBarcode(barcode: Long) {
+        CoroutineScope(Dispatchers.Main).launch { productRepository.getBarcode(barcode) }
+    }
+
+    fun getVeganProducts(name: String) {
+        CoroutineScope(Dispatchers.Main).launch { productRepository.getVeganProducts("%$name%")}
     }
 
     fun insertProduct(product: Product) {

@@ -1,5 +1,6 @@
 package com.example.madlevel8.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,20 +9,25 @@ import com.example.madlevel8.R
 import com.example.madlevel8.databinding.ItemProductBinding
 import com.example.madlevel8.model.Product
 
-class ProductAdapter(private val products: List<Product>, private val onClick: (Product) -> Unit) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        init {
-            itemView.setOnClickListener { onClick(products[adapterPosition]) }
-        }
-
         private val binding = ItemProductBinding.bind(itemView)
 
-        // Fill the RecyclerView with the name ans vegan status of the product.
-        fun databind(product: Product) {
+        // Fill the CardView with the name and vegan status of the product.
+        fun bind(product: Product) {
             binding.tvName.text = product.name
-            binding.tvVegan.text = product.vegan.toString()
+
+            // Show whether the product is vegan by text and color (green for vegan products and red for non-vegan products).
+            if (product.vegan) {
+                binding.tvName.setTextColor(Color.parseColor("#669900"))
+                binding.tvVegan.setTextColor(Color.parseColor("#669900"))
+                binding.tvVegan.text = " is vegan."
+            } else {
+                binding.tvName.setTextColor(Color.parseColor("#CC0000"))
+                binding.tvVegan.setTextColor(Color.parseColor("#CC0000"))
+                binding.tvVegan.text = " is not vegan."
+            }
         }
     }
 
@@ -37,6 +43,6 @@ class ProductAdapter(private val products: List<Product>, private val onClick: (
 
     // Display the data at the specified position, called by RecyclerView.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.databind(products[position])
+        holder.bind(products[position])
     }
 }

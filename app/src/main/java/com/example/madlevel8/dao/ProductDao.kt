@@ -9,6 +9,12 @@ interface ProductDao {
     @Query("SELECT * FROM Product WHERE name LIKE :name")
     suspend fun getProducts(name: String): List<Product>
 
+    @Query("SELECT * FROM Product WHERE barcode = :barcode")
+    suspend fun getBarcode(barcode: Long): List<Product>
+
+    @Query("SELECT * FROM Product WHERE name LIKE :name AND vegan")
+    suspend fun getVeganProducts(name: String): List<Product>
+
     @Insert
     suspend fun insertProduct(product: Product)
 

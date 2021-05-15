@@ -7,7 +7,7 @@
     tools:context=".ui.HomeFragment">
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/svProducts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -18,44 +18,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@android:color/darker_gray"
-        android:text="@string/scan"
+        android:src="@drawable/ic_barcode_black_24dp"
+        android:text="Button"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/svProducts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/searchView"
-        app:layout_constraintTop_toTopOf="@+id/searchView" />
+        app:layout_constraintStart_toEndOf="@+id/svProducts"
+        app:layout_constraintTop_toTopOf="@+id/svProducts" />
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
+        android:id="@+id/cgVegan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
+        app:layout_constraintStart_toStartOf="@+id/svProducts"
+        app:layout_constraintTop_toBottomOf="@+id/svProducts">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip4"
+            android:id="@+id/cVegan"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Vegan" />
     </com.google.android.material.chip.ChipGroup>
 
     <TextView
-        android:id="@+id/tvNothingFound"
+        android:id="@+id/tvNoProductsFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/nothing_found"
+        android:text="@string/no_products_found"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintStart_toStartOf="@+id/cgVegan"
+        app:layout_constraintTop_toBottomOf="@+id/cgVegan" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProducts"
@@ -65,10 +68,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/cgVegan" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
