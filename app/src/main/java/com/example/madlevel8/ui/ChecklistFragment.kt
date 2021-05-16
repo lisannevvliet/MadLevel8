@@ -39,8 +39,7 @@ class ChecklistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Add all checkboxes to an ArrayList, to be able to loop over them later.
-        checkboxes.addAll(
-            listOf(
+        checkboxes.addAll(listOf(
                 binding.cbFruit1, binding.cbFruit2, binding.cbFruit3,
                 binding.cbVegetables1, binding.cbVegetables2, binding.cbVegetables3,
                 binding.cbWholeGrains1, binding.cbWholeGrains2, binding.cbWholeGrains3,
@@ -50,8 +49,7 @@ class ChecklistFragment : Fragment() {
                 binding.cbFlaxSeedsChiaSeeds1,
                 binding.cbSupplements1, binding.cbSupplements2, binding.cbSupplements3,
                 binding.cbDrinks1, binding.cbDrinks2, binding.cbDrinks3, binding.cbDrinks4, binding.cbDrinks5, binding.cbDrinks6
-            )
-        )
+        ))
 
         // Set the text of the date button to today's date.
         val today = SimpleDateFormat("d MMMM yyyy", Locale.US).format(calendar.time)

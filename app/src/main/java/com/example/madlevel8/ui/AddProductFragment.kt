@@ -3,19 +3,14 @@ package com.example.madlevel8.ui
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.madlevel8.R
 import com.example.madlevel8.databinding.FragmentAddProductBinding
 import com.example.madlevel8.model.Product
 import com.example.madlevel8.vm.ProductViewModel
@@ -105,7 +100,6 @@ class AddProductFragment : Fragment() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
         if (result.contents != null) {
-
             val barcode = result.contents.toLong().toString()
 
             binding.etBarcode.setText(barcode)
