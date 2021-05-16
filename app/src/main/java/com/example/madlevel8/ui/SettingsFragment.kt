@@ -62,4 +62,11 @@ class SettingsFragment : Fragment() {
             builder.show()
         }
     }
+
+    // Release the view if the fragment is destroyed to prevent a memory leak.
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
+    }
 }

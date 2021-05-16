@@ -96,13 +96,6 @@ class ChecklistFragment : Fragment() {
         updateChecklist()
     }
 
-    // .....................................................................
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        _binding = null
-    }
-
     // Add, update or remove the selected checkboxes with the corresponding date.
     private fun updateChecklist() {
         val selected = ArrayList<Boolean>()
@@ -116,5 +109,12 @@ class ChecklistFragment : Fragment() {
         val date = binding.btnDate.text as String
 
         viewModel.updateChecklist(Checklist(date, selected))
+    }
+
+    // Release the view if the fragment is destroyed to prevent a memory leak.
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
     }
 }

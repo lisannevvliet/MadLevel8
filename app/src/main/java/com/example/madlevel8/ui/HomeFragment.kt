@@ -143,13 +143,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // .....................................................................
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        _binding = null
-    }
-
     // Enable touch behavior (like swipe and move) on each ViewHolder, and use callbacks to signal when a user is performing these actions.
     private fun itemTouchHelper(): ItemTouchHelper {
 
@@ -190,5 +183,12 @@ class HomeFragment : Fragment() {
             }
         }
         return ItemTouchHelper(callback)
+    }
+
+    // Release the view if the fragment is destroyed to prevent a memory leak.
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
     }
 }

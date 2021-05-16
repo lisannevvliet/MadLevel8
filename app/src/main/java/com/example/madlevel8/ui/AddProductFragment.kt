@@ -91,13 +91,6 @@ class AddProductFragment : Fragment() {
         }
     }
 
-    // .....................................................................
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        _binding = null
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -118,4 +111,12 @@ class AddProductFragment : Fragment() {
             binding.etBarcode.setText(barcode)
         }
     }
+
+    // Release the view if the fragment is destroyed to prevent a memory leak.
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
+    }
+
 }
