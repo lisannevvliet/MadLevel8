@@ -17,10 +17,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         CoroutineScope(Dispatchers.Main).launch { productRepository.getProducts("%$name%") }
     }
 
-    fun getAllProducts(name: String) {
-        CoroutineScope(Dispatchers.Main).launch { productRepository.getProducts("%$name%") }
-    }
-
     fun getBarcode(barcode: Long) {
         CoroutineScope(Dispatchers.Main).launch { productRepository.getBarcode(barcode) }
     }
