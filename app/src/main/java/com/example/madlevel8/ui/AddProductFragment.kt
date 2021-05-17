@@ -1,5 +1,6 @@
 package com.example.madlevel8.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -88,6 +90,9 @@ class AddProductFragment : Fragment() {
                 // Show a Snackbar message which says that the product was successfully added.
                 Snackbar.make(binding.btnAdd, "${product.name} was successfully added.", Snackbar.LENGTH_LONG).show()
 
+                // Close the keyboard so that it is not still open in the HomeFragment.
+                view.closeKeyboard()
+
                 // Navigate back to the HomeFragment.
                 findNavController().popBackStack()
             }
@@ -115,6 +120,12 @@ class AddProductFragment : Fragment() {
             // Fill the barcode with the result.
             binding.etBarcode.setText(barcode)
         }
+    }
+
+    // Close the keyboard.
+    private fun View.closeKeyboard() {
+        val manager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        manager.hideSoftInputFromWindow(windowToken, 0)
     }
 
     // Release the view if the fragment is destroyed to prevent a memory leak.
