@@ -103,7 +103,11 @@ class AddProductFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
+                // Close the keyboard so that it is not still open in the HomeFragment.
+                view?.closeKeyboard()
+
                 findNavController().popBackStack()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
