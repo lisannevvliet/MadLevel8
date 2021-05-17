@@ -40,9 +40,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                     else if (name.all { it.isDigit() }) {
                         val barcode = name.toLong()
                         if (checked) {
-                            withContext(Dispatchers.IO) { productRepository.getBarcodeProducts(barcode) }
-                        } else {
                             withContext(Dispatchers.IO) { productRepository.getVeganBarcodeProducts(barcode) }
+                        } else {
+                            withContext(Dispatchers.IO) { productRepository.getBarcodeProducts(barcode) }
                         }
                     // Retrieve all (vegan) products which match the search query.
                     } else if (checked) {
