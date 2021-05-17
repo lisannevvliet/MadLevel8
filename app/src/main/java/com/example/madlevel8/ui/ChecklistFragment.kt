@@ -51,13 +51,6 @@ class ChecklistFragment : Fragment() {
                 binding.cbDrinks1, binding.cbDrinks2, binding.cbDrinks3, binding.cbDrinks4, binding.cbDrinks5, binding.cbDrinks6
         ))
 
-        // Set the text of the date button to today's date.
-        val today = SimpleDateFormat("d MMMM yyyy", Locale.US).format(calendar.time)
-        binding.btnDate.text = today
-
-        // Retrieve the checklist of today and select the correct checkboxes.
-        viewModel.getChecklist(today, checkboxes)
-
         // Create an OnDateSetListener.
         val listener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
@@ -85,16 +78,16 @@ class ChecklistFragment : Fragment() {
             // Save the checklist of the previously selected date.
             updateChecklist()
         }
+
+        // Set the text of the date button to today's date.
+        val today = SimpleDateFormat("d MMMM yyyy", Locale.US).format(calendar.time)
+        binding.btnDate.text = today
+
+        // Retrieve the checklist of today and select the correct checkboxes.
+        viewModel.getChecklist(today, checkboxes)
     }
 
-    // Save the checklist of the selected date before leaving the fragment.
-    override fun onPause() {
-        super.onPause()
-
-        updateChecklist()
-    }
-
-    // Add, update or remove the selected checkboxes with the corresponding date.
+    // Add, update or remove the checklist of the corresponding date.
     private fun updateChecklist() {
         val selected = ArrayList<Boolean>()
 
@@ -107,6 +100,13 @@ class ChecklistFragment : Fragment() {
         val date = binding.btnDate.text as String
 
         viewModel.updateChecklist(Checklist(date, selected))
+    }
+
+    // Save the checklist of the selected date before leaving the fragment.
+    override fun onPause() {
+        super.onPause()
+
+        updateChecklist()
     }
 
     // Release the view if the fragment is destroyed to prevent a memory leak.

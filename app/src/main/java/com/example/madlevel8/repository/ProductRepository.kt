@@ -1,8 +1,6 @@
 package com.example.madlevel8.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.madlevel8.dao.ProductDao
 import com.example.madlevel8.database.ProductRoomDatabase
 import com.example.madlevel8.model.Product
@@ -16,15 +14,17 @@ class ProductRepository(context: Context) {
         productDao = productRoomDatabase!!.productDao()
     }
 
-    // Initialize the LiveData in which the search results will be stored.
-    private val _products: MutableLiveData<List<Product>> = MutableLiveData()
-    val products: LiveData<List<Product>> get() = _products
+    suspend fun getAllProducts(): List<Product> = productDao.getAllProducts()
 
-    suspend fun getProducts(name: String) { _products.value = productDao.getProducts(name) }
+    suspend fun getAllVeganProducts(): List<Product> = productDao.getAllVeganProducts()
 
-    suspend fun getBarcode(barcode: Long) { _products.value = productDao.getBarcode(barcode) }
+    suspend fun getProducts(name: String): List<Product> = productDao.getProducts(name)
 
-    suspend fun getVeganProducts(name: String) { _products.value = productDao.getVeganProducts(name) }
+    suspend fun getVeganProducts(name: String): List<Product> = productDao.getVeganProducts(name)
+
+    suspend fun getBarcodeProducts(barcode: Long): List<Product> = productDao.getBarcodeProducts(barcode)
+
+    suspend fun getVeganBarcodeProducts(barcode: Long): List<Product> = productDao.getVeganBarcodeProducts(barcode)
 
     suspend fun insertProduct(product: Product) = productDao.insertProduct(product)
 

@@ -33,8 +33,23 @@ class AddProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Enable a different AppBar for this fragment.
+        // Allow changes to this fragment's AppBar.
         setHasOptionsMenu(true)
+
+        // Retrieve the fragment result from the HomeFragment and fill the product name or barcode with it.
+        setFragmentResultListener(requestKey) { _, bundle ->
+            val result = bundle.getString(bundleKey)
+
+            if (result != null) {
+                // If the result only consists of digits, fill the barcode with the result.
+                if (result.all { it.isDigit() }) {
+                    binding.etBarcode.setText(result)
+                // If the result also consists of letters, fill the product name with the result.
+                } else {
+                    binding.etName.setText(result)
+                }
+            }
+        }
 
         // Show the barcode scanner upon a click on the scan button.
         binding.btnScan.setOnClickListener {
@@ -48,44 +63,38 @@ class AddProductFragment : Fragment() {
             integrator.initiateScan()
         }
 
+        // Add the product to the database upon a click on add button.
         binding.btnAdd.setOnClickListener {
             val name = binding.etName.text.toString()
-            val vegan = binding.sVegan.isChecked
             val barcode = binding.etBarcode.text.toString()
+            val vegan = binding.sVegan.isChecked
 
+            // Check if the product name is filled in.
             if (TextUtils.isEmpty(name)) {
-                Snackbar.make(binding.btnAdd, "Please fill in a valid name.", Snackbar.LENGTH_LONG).show()
+                // Show a Snackbar message which says that the product name needs to be filled in.
+                Snackbar.make(binding.btnAdd, "Please fill in the product name.", Snackbar.LENGTH_LONG).show()
             } else {
-                if (TextUtils.isEmpty(barcode)) {
-                    val product = Product(name, vegan)
-                    viewModel.insertProduct(product)
-                    Snackbar.make(binding.btnAdd, "${product.name} was successfully added.", Snackbar.LENGTH_LONG).show()
-                    findNavController().popBackStack()
-                } else {
-                    val product = Product(name, vegan, barcode.toLong())
-                    viewModel.insertProduct(product)
-                    Snackbar.make(binding.btnAdd, "${product.name} was successfully added.", Snackbar.LENGTH_LONG).show()
-                    findNavController().popBackStack()
+                // Check if the barcode is filled in and create a product object with the filled in fields.
+                val product =
+                        if (TextUtils.isEmpty(barcode)) {
+                            Product(name, vegan)
+                        } else {
+                            Product(name, vegan, barcode.toLong())
                 }
-            }
-        }
 
-        // Retrieve the fragment result from the HomeFragment and pass it onto the bind function.
-        setFragmentResultListener(requestKey) { _, bundle ->
-            val result = bundle.getString(bundleKey)
+                // Add the product to the database.
+                viewModel.insertProduct(product)
 
-            if (result != null) {
-                // If the result only consists of digits, fill the barcode with the result.
-                if (result.all { it.isDigit() } ) {
-                    binding.etBarcode.setText(result)
-                // If the result also consists of letters, fill the product name with the result.
-                } else {
-                    binding.etName.setText(result)
-                }
+                // Show a Snackbar message which says that the product was successfully added.
+                Snackbar.make(binding.btnAdd, "${product.name} was successfully added.", Snackbar.LENGTH_LONG).show()
+
+                // Navigate back to the HomeFragment.
+                findNavController().popBackStack()
             }
         }
     }
 
+    // Navigate back to the HomeFragment upon a click on the AppBar's back button.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -96,12 +105,14 @@ class AddProductFragment : Fragment() {
         }
     }
 
+    // Retrieve the result of the barcode scanner.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
         if (result.contents != null) {
-            val barcode = result.contents.toLong().toString()
+            val barcode = result.contents
 
+            // Fill the barcode with the result.
             binding.etBarcode.setText(barcode)
         }
     }
@@ -112,5 +123,4 @@ class AddProductFragment : Fragment() {
 
         _binding = null
     }
-
 }
