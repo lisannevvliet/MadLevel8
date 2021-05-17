@@ -78,6 +78,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         backupProducts.clear()
         backupProducts.addAll(products)
 
+        // Store the position of the product to delete.
+        val product = products[position]
+
         // Delete the product from the RecyclerView.
         products.removeAt(position)
 
@@ -97,7 +100,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                             productAdapter.notifyDataSetChanged()
                         } else -> {
                         // Permanently delete the product from the database.
-                        CoroutineScope(Dispatchers.IO).launch { productRepository.deleteProduct(products[position]) }
+                        CoroutineScope(Dispatchers.IO).launch { productRepository.deleteProduct(product) }
                     }
                     }
                 }
