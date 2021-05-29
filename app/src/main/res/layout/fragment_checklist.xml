@@ -43,9 +43,11 @@
 
                 <TextView
                     android:id="@+id/tvFruitMeasurement"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/fruits_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbFruit1"
                     app:layout_constraintStart_toStartOf="@+id/tvFruits"
                     app:layout_constraintTop_toBottomOf="@+id/tvFruits" />
 
@@ -83,9 +85,11 @@
 
                 <TextView
                     android:id="@+id/tvVegetablesMeasurement"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/vegetables_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbVegetables1"
                     app:layout_constraintStart_toStartOf="@+id/tvVegetables"
                     app:layout_constraintTop_toBottomOf="@+id/tvVegetables" />
 
@@ -263,9 +267,11 @@
 
                 <TextView
                     android:id="@+id/tvFlaxSeedsChiaSeedsMeasurement"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/flax_seeds_chia_seeds_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbFlaxSeedsChiaSeeds1"
                     app:layout_constraintStart_toStartOf="@+id/tvNutsSeedsPeanutsAvocado"
                     app:layout_constraintTop_toBottomOf="@+id/tvFlaxSeedsChiaSeeds" />
 
@@ -289,9 +295,11 @@
 
                 <TextView
                     android:id="@+id/tvSupplementsMeasurement"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/supplements_measurement"
+                    app:layout_constraintEnd_toStartOf="@+id/cbSupplements1"
                     app:layout_constraintStart_toStartOf="@+id/tvSupplements"
                     app:layout_constraintTop_toBottomOf="@+id/tvSupplements" />
 

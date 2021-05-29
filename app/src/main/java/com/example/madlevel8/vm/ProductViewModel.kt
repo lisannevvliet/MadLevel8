@@ -57,9 +57,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
             // Show the no products found error if the products list is empty.
             if (products.isEmpty()) {
-                tvNoProductsFound.visibility =  View.VISIBLE
+                tvNoProductsFound.visibility = View.VISIBLE
             } else {
-                tvNoProductsFound.visibility =  View.INVISIBLE
+                tvNoProductsFound.visibility = View.INVISIBLE
             }
 
             // Update the RecyclerView.
@@ -87,8 +87,8 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         // Update the RecyclerView.
         productAdapter.notifyDataSetChanged()
 
-        // Show a Snackbar message which says that the product was successfully deleted, with an undo button next to it.
-        Snackbar.make(rvProducts, R.string.successful, Snackbar.LENGTH_LONG)
+        // Show a Snackbar message which says that the product has been deleted, with an undo button next to it.
+        Snackbar.make(rvProducts, getApplication<Application>().resources.getString(R.string.deleted, product.name), Snackbar.LENGTH_LONG)
             .addCallback(object : Snackbar.Callback() {
                 override fun onDismissed(snackbar: Snackbar, event: Int) {
                     when (event) {

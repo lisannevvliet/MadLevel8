@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.madlevel8.R
 import com.example.madlevel8.databinding.FragmentAddProductBinding
 import com.example.madlevel8.model.Product
 import com.example.madlevel8.vm.ProductViewModel
@@ -74,7 +75,7 @@ class AddProductFragment : Fragment() {
             // Check if the product name is filled in.
             if (TextUtils.isEmpty(name)) {
                 // Show a Snackbar message which says that the product name needs to be filled in.
-                Snackbar.make(binding.btnAdd, "Please fill in the product name.", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.btnAdd, R.string.empty_product_name, Snackbar.LENGTH_LONG).show()
             } else {
                 // Check if the barcode is filled in and create a product object with the filled in fields.
                 val product =
@@ -87,8 +88,8 @@ class AddProductFragment : Fragment() {
                 // Add the product to the database.
                 viewModel.insertProduct(product)
 
-                // Show a Snackbar message which says that the product was successfully added.
-                Snackbar.make(binding.btnAdd, "${product.name} was successfully added.", Snackbar.LENGTH_LONG).show()
+                // Show a Snackbar message which says that the product has been added.
+                Snackbar.make(binding.btnAdd, getString(R.string.added, product.name), Snackbar.LENGTH_LONG).show()
 
                 // Close the keyboard so that it is not still open in the HomeFragment.
                 view.closeKeyboard()

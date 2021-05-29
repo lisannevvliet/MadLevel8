@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madlevel8.R
 import com.example.madlevel8.databinding.ItemProductBinding
 import com.example.madlevel8.model.Product
+import java.util.*
 
 class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -22,11 +23,23 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
             if (product.vegan) {
                 binding.tvName.setTextColor(Color.parseColor("#669900"))
                 binding.tvVegan.setTextColor(Color.parseColor("#669900"))
-                binding.tvVegan.text = " is vegan."
+                // Display the vegan status in the system language.
+                binding.tvVegan.text =
+                    if (Locale.getDefault().displayLanguage == "English") {
+                        " is not vegan."
+                    } else {
+                        " is niet veganistisch."
+                    }
             } else {
                 binding.tvName.setTextColor(Color.parseColor("#CC0000"))
                 binding.tvVegan.setTextColor(Color.parseColor("#CC0000"))
-                binding.tvVegan.text = " is not vegan."
+                // Display the vegan status in the system language.
+                binding.tvVegan.text =
+                    if (Locale.getDefault().displayLanguage == "English") {
+                        " is vegan."
+                    } else {
+                        " is veganistisch."
+                    }
             }
         }
     }

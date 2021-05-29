@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.madlevel8.R
 import com.example.madlevel8.databinding.FragmentSettingsBinding
 import com.example.madlevel8.vm.ChecklistViewModel
 import com.example.madlevel8.vm.ProductViewModel
@@ -32,14 +33,14 @@ class SettingsFragment : Fragment() {
         val builder = AlertDialog.Builder(context)
 
         binding.btnDeleteProducts.setOnClickListener {
-            builder.setTitle("Are you sure?")
-                .setMessage("All products will be deleted.")
-                .setPositiveButton("Yes") { _, _ ->
+            builder.setTitle(R.string.confirmation)
+                .setMessage(R.string.action)
+                .setPositiveButton(R.string.yes) { _, _ ->
                     productViewModel.deleteAllProducts()
-                    Snackbar.make(binding.btnDeleteProducts, "Products deleted.", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.btnDeleteProducts, getString(R.string.deleted, "Products"), Snackbar.LENGTH_LONG).show()
                 }
-                .setNegativeButton("No") { _, _ ->
-                    Snackbar.make(binding.btnDeleteProducts, "Action cancelled.", Snackbar.LENGTH_LONG).show()
+                .setNegativeButton(R.string.no) { _, _ ->
+                    Snackbar.make(binding.btnDeleteProducts, R.string.cancelled, Snackbar.LENGTH_LONG).show()
                 }
 
             builder.create()
@@ -47,14 +48,14 @@ class SettingsFragment : Fragment() {
         }
 
         binding.btnDeleteChecklists.setOnClickListener {
-            builder.setTitle("Are you sure?")
-                .setMessage("All checklists will be deleted.")
-                .setPositiveButton("Yes") { _, _ ->
+            builder.setTitle(R.string.confirmation)
+                .setMessage(R.string.action)
+                .setPositiveButton(R.string.yes) { _, _ ->
                     checklistViewModel.deleteAllChecklists()
-                    Snackbar.make(binding.btnDeleteChecklists, "Checklists deleted.", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.btnDeleteChecklists, getString(R.string.deleted, "Checklists"), Snackbar.LENGTH_LONG).show()
                 }
-                .setNegativeButton("No") { _, _ ->
-                    Snackbar.make(binding.btnDeleteChecklists, "Action cancelled.", Snackbar.LENGTH_LONG).show()
+                .setNegativeButton(R.string.no) { _, _ ->
+                    Snackbar.make(binding.btnDeleteChecklists, R.string.cancelled, Snackbar.LENGTH_LONG).show()
                 }
 
             builder.create()

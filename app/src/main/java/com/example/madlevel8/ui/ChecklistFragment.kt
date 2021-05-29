@@ -51,6 +51,14 @@ class ChecklistFragment : Fragment() {
                 binding.cbDrinks1, binding.cbDrinks2, binding.cbDrinks3, binding.cbDrinks4, binding.cbDrinks5, binding.cbDrinks6
         ))
 
+        // Make sure the language of the date button matches the system language.
+        val locale =
+            if (Locale.getDefault().displayLanguage == "English") {
+                Locale.US
+            } else {
+                Locale("nl")
+            }
+
         // Create an OnDateSetListener.
         val listener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
@@ -58,7 +66,7 @@ class ChecklistFragment : Fragment() {
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
             // Set the text of the date button to the selected date.
-            val date = SimpleDateFormat("d MMMM yyyy", Locale.US).format(calendar.time)
+            val date = SimpleDateFormat("d MMMM yyyy", locale).format(calendar.time)
             binding.btnDate.text = date
 
             // Retrieve the checklist of the selected date and select the correct checkboxes.
@@ -80,7 +88,7 @@ class ChecklistFragment : Fragment() {
         }
 
         // Set the text of the date button to today's date.
-        val today = SimpleDateFormat("d MMMM yyyy", Locale.US).format(calendar.time)
+        val today = SimpleDateFormat("d MMMM yyyy", locale).format(calendar.time)
         binding.btnDate.text = today
 
         // Retrieve the checklist of today and select the correct checkboxes.
@@ -97,7 +105,7 @@ class ChecklistFragment : Fragment() {
         }
 
         // Save the date that is displayed in the date button.
-        val date = binding.btnDate.text as String
+        val date = binding.btnDate.text.toString()
 
         viewModel.updateChecklist(Checklist(date, selected))
     }
