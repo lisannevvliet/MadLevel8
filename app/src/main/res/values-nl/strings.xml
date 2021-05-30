@@ -6,12 +6,12 @@
     <string name="title_settings">Instellingen</string>
     <string name="confirmation">Weet je het zeker?</string>
     <string name="action_products">Alle producten zullen worden verwijderd.</string>
-    <string name="action_checklists">Alle checklists zullen worden verwijderd.</string>
+    <string name="action_checklists">Alle checklisten zullen worden verwijderd.</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
     <string name="cancelled">Actie is geannuleerd.</string>
     <string name="all_products_deleted">Alle producten zijn verwijderd.</string>
-    <string name="all_checklists_deleted">Alle checklists zijn verwijderd.</string>
+    <string name="all_checklists_deleted">Alle checklisten zijn verwijderd.</string>
     <string name="no_products_found">Geen producten gevonden.\n\nVoeg het product toe door op de <b>+</b> knop te klikken.</string>
     <string name="deleted">%s is verwijderd.</string>
     <string name="undo">Ongedaan maken</string>

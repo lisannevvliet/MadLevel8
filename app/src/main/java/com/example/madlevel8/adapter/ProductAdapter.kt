@@ -21,14 +21,14 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
 
             // Show whether the product is vegan by text and color (green for vegan products and red for non-vegan products).
             if (product.vegan) {
-                binding.tvName.setTextColor(Color.parseColor("#669900"))
-                binding.tvVegan.setTextColor(Color.parseColor("#669900"))
+                binding.tvName.setTextColor(Color.parseColor("#157741"))
+                binding.tvVegan.setTextColor(Color.parseColor("#157741"))
                 // Display the vegan status in the system language.
                 binding.tvVegan.text =
                     if (Locale.getDefault().displayLanguage == "English") {
-                        " is not vegan."
+                        " is vegan."
                     } else {
-                        " is niet veganistisch."
+                        " is veganistisch."
                     }
             } else {
                 binding.tvName.setTextColor(Color.parseColor("#CC0000"))
@@ -36,9 +36,9 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
                 // Display the vegan status in the system language.
                 binding.tvVegan.text =
                     if (Locale.getDefault().displayLanguage == "English") {
-                        " is vegan."
+                        " is not vegan."
                     } else {
-                        " is veganistisch."
+                        " is niet veganistisch."
                     }
             }
         }
