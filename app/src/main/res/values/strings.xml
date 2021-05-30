@@ -39,4 +39,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="cancelled">Action has been cancelled.</string>
+    <string name="all_deleted">All %s have been deleted.</string>
 </resources>

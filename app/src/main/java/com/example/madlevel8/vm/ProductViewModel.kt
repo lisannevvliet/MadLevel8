@@ -87,7 +87,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         // Update the RecyclerView.
         productAdapter.notifyDataSetChanged()
 
-        // Show a Snackbar message which says that the product has been deleted, with an undo button next to it.
+        // Show a Snackbar message which says that the product has been deleted, with an option to undo the action.
         Snackbar.make(rvProducts, getApplication<Application>().resources.getString(R.string.deleted, product.name), Snackbar.LENGTH_LONG)
             .addCallback(object : Snackbar.Callback() {
                 override fun onDismissed(snackbar: Snackbar, event: Int) {
@@ -99,9 +99,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                             // Update the RecyclerView.
                             productAdapter.notifyDataSetChanged()
                         } else -> {
-                        // Permanently delete the product from the database.
-                        CoroutineScope(Dispatchers.IO).launch { productRepository.deleteProduct(product) }
-                    }
+                            // Permanently delete the product from the database.
+                            CoroutineScope(Dispatchers.IO).launch { productRepository.deleteProduct(product) }
+                        }
                     }
                 }
             })

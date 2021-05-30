@@ -1,10 +1,13 @@
 package com.example.madlevel8.vm
 
 import android.app.Application
+import android.widget.Button
 import android.widget.CheckBox
 import androidx.lifecycle.AndroidViewModel
+import com.example.madlevel8.R
 import com.example.madlevel8.model.Checklist
 import com.example.madlevel8.repository.ChecklistRepository
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,8 +64,29 @@ class ChecklistViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    // Delete all checklists in the database.
-    fun deleteAllChecklists() {
-        CoroutineScope(Dispatchers.IO).launch { checklistRepository.deleteAllChecklists() }
+    // Delete all checklists in the database, with an option to undo the action.
+    fun deleteAllChecklists(date: String, checkboxes: ArrayList<CheckBox>, btnDate: Button) {
+        // Deselect all checkboxes.
+        for (checkbox in checkboxes) {
+            checkbox.isChecked = false
+        }
+
+        // Show a Snackbar message which says that all checklists have been deleted, with an undo option to undo the action.
+        Snackbar.make(btnDate, getApplication<Application>().resources.getString(R.string.all_deleted, "checklists"), Snackbar.LENGTH_LONG)
+            .addCallback(object : Snackbar.Callback() {
+                override fun onDismissed(snackbar: Snackbar, event: Int) {
+                    when (event) {
+                        DISMISS_EVENT_ACTION -> {
+                            // Retrieve the checklist of the specified date and select the correct checkboxes.
+                            getChecklist(date, checkboxes)
+                        } else -> {
+                            // Permanently delete all checklists from the database.
+                            CoroutineScope(Dispatchers.IO).launch { checklistRepository.deleteAllChecklists() }
+                        }
+                    }
+                }
+            })
+            .setAction(R.string.undo) { }
+            .show()
     }
 }

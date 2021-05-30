@@ -8,23 +8,13 @@
 
     <Button
         android:id="@+id/btnDeleteProducts"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:text="@string/delete_products"
-        app:layout_constraintEnd_toEndOf="@+id/btnDeleteChecklists"
-        app:layout_constraintStart_toStartOf="@+id/btnDeleteChecklists"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnDeleteChecklists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@android:color/holo_red_dark"
-        android:text="@string/delete_checklists"
+        android:text="@string/delete_products"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDeleteProducts" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
