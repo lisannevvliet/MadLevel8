@@ -1,10 +1,9 @@
 package com.example.madlevel8.ui
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -17,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madlevel8.R
 import com.example.madlevel8.databinding.FragmentHomeBinding
 import com.example.madlevel8.vm.ProductViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.integration.android.IntentIntegrator
 
 // Initialize the bundle and request key for the fragment result.
@@ -38,6 +38,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Enable a different AppBar for this fragment.
+        setHasOptionsMenu(true)
 
         // Show the search results upon a change in the search query.
         binding.svProducts.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -96,6 +99,34 @@ class HomeFragment : Fragment() {
         // Navigate to the AddProductFragment upon a click on the floating action button.
         binding.fabAdd.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_addProductFragment)
+        }
+    }
+
+    // Inflate the custom AppBar.
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+    // Delete all products upon a click on the AppBar trash can, with an option to undo the action.
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.delete -> {
+                // Show an AlertDialog to prevent accidental deletion of the products.
+                AlertDialog.Builder(context)
+                    .setTitle(R.string.confirmation)
+                    .setMessage(R.string.action_products)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        // Delete all products in the database, with an option to undo the action.
+                        viewModel.deleteAllProducts(binding.rvProducts)
+                    }
+                    .setNegativeButton(R.string.no) { _, _ ->
+                        // Show a Snackbar message which says that the action has been cancelled.
+                        Snackbar.make(binding.rvProducts, R.string.cancelled, Snackbar.LENGTH_SHORT).show()
+                    }
+                    .create()
+                    .show()
+                true
+            } else -> super.onOptionsItemSelected(item)
         }
     }
 

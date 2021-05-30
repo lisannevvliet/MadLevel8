@@ -109,8 +109,37 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             .show()
     }
 
-    // Delete all products in the database.
-    fun deleteAllProducts() {
-        CoroutineScope(Dispatchers.IO).launch { productRepository.deleteAllProducts() }
+    // Delete all products in the database, with an option to undo the action.
+    fun deleteAllProducts(rvProducts: RecyclerView) {
+        // Backup the products, in case the undo button is clicked.
+        backupProducts.clear()
+        backupProducts.addAll(products)
+
+        // Delete all products from the RecyclerView.
+        products.clear()
+
+        // Update the RecyclerView.
+        productAdapter.notifyDataSetChanged()
+
+        // Show a Snackbar message which says that all products have been deleted, with an undo option to undo the action.
+        Snackbar.make(rvProducts, R.string.all_products_deleted, Snackbar.LENGTH_LONG)
+            .addCallback(object : Snackbar.Callback() {
+                override fun onDismissed(snackbar: Snackbar, event: Int) {
+                    when (event) {
+                        DISMISS_EVENT_ACTION -> {
+                            // Restore the backup of the products.
+                            products.addAll(backupProducts)
+
+                            // Update the RecyclerView.
+                            productAdapter.notifyDataSetChanged()
+                        } else -> {
+                            // Permanently delete all products from the database.
+                            CoroutineScope(Dispatchers.IO).launch { productRepository.deleteAllProducts() }
+                        }
+                    }
+                }
+            })
+            .setAction(R.string.undo) { }
+            .show()
     }
 }

@@ -75,7 +75,7 @@ class AddProductFragment : Fragment() {
             // Check if the product name is filled in.
             if (TextUtils.isEmpty(name)) {
                 // Show a Snackbar message which says that the product name needs to be filled in.
-                Snackbar.make(binding.btnAdd, R.string.empty_product_name, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.btnAdd, R.string.empty_product_name, Snackbar.LENGTH_SHORT).show()
             } else {
                 // Check if the barcode is filled in and create a product object with the filled in fields.
                 val product =
@@ -89,7 +89,7 @@ class AddProductFragment : Fragment() {
                 viewModel.insertProduct(product)
 
                 // Show a Snackbar message which says that the product has been added.
-                Snackbar.make(binding.btnAdd, getString(R.string.added, product.name), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.btnAdd, getString(R.string.added, product.name), Snackbar.LENGTH_SHORT).show()
 
                 // Close the keyboard so that it is not still open in the HomeFragment.
                 view.closeKeyboard()

@@ -115,16 +115,17 @@ class ChecklistFragment : Fragment() {
                 // Save the checklist of the selected date before opening the AlertDialog.
                 updateChecklist()
 
+                // Show an AlertDialog to prevent accidental deletion of the checklists.
                 AlertDialog.Builder(context)
                     .setTitle(R.string.confirmation)
-                    .setMessage(getString(R.string.action, "products"))
+                    .setMessage(R.string.action_checklists)
                     .setPositiveButton(R.string.yes) { _, _ ->
                         // Delete all checklists in the database, with an option to undo the action.
                         viewModel.deleteAllChecklists(date, checkboxes, binding.btnDate)
                     }
                     .setNegativeButton(R.string.no) { _, _ ->
                         // Show a Snackbar message which says that the action has been cancelled.
-                        Snackbar.make(binding.btnDate, R.string.cancelled, Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(binding.btnDate, R.string.cancelled, Snackbar.LENGTH_SHORT).show()
                     }
                     .create()
                     .show()

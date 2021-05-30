@@ -72,7 +72,7 @@ class ChecklistViewModel(application: Application) : AndroidViewModel(applicatio
         }
 
         // Show a Snackbar message which says that all checklists have been deleted, with an undo option to undo the action.
-        Snackbar.make(btnDate, getApplication<Application>().resources.getString(R.string.all_deleted, "checklists"), Snackbar.LENGTH_LONG)
+        Snackbar.make(btnDate, R.string.all_checklists_deleted, Snackbar.LENGTH_LONG)
             .addCallback(object : Snackbar.Callback() {
                 override fun onDismissed(snackbar: Snackbar, event: Int) {
                     when (event) {

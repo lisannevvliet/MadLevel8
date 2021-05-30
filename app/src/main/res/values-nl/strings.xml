@@ -4,6 +4,14 @@
     <string name="title_add_product">Product toevoegen</string>
     <string name="title_checklist">Checklist</string>
     <string name="title_settings">Instellingen</string>
+    <string name="confirmation">Weet je het zeker?</string>
+    <string name="action_products">Alle producten zullen worden verwijderd.</string>
+    <string name="action_checklists">Alle checklists zullen worden verwijderd.</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    <string name="cancelled">Actie is geannuleerd.</string>
+    <string name="all_products_deleted">Alle producten zijn verwijderd.</string>
+    <string name="all_checklists_deleted">Alle checklists zijn verwijderd.</string>
     <string name="no_products_found">Geen producten gevonden.\n\nVoeg het product toe door op de <b>+</b> knop te klikken.</string>
     <string name="deleted">%s is verwijderd.</string>
     <string name="undo">Ongedaan maken</string>
@@ -32,12 +40,4 @@
     <string name="supplements_measurement">Afhankelijk van persoonlijke behoefte.</string>
     <string name="drinks">Vocht</string>
     <string name="drinks_measurement">1 glas of mok à 250 milliliter water, thee of koffie.</string>
-    <string name="delete_products">Verwijder alle producten</string>
-    <string name="delete_checklists">Verwijder alle checklists</string>
-    <string name="confirmation">Weet je het zeker?</string>
-    <string name="action">Alle %s zullen worden verwijderd.</string>
-    <string name="yes">Ja</string>
-    <string name="no">Nee</string>
-    <string name="cancelled">Actie is geannuleerd.</string>
-    <string name="all_deleted">Alle %s zijn verwijderd.</string>
 </resources>
