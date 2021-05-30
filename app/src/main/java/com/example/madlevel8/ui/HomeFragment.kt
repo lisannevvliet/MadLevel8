@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
 
         // Navigate to the AddProductFragment upon a click on the floating action button.
         binding.fabAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_addProductFragment)
+            findNavController().navigate(R.id.action_navigation_home_to_navigation_add_product)
         }
     }
 

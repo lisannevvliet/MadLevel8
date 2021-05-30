@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_add_product">Add product</string>
     <string name="title_checklist">Checklist</string>
-    <string name="title_settings">Settings</string>
+    <string name="title_map">Map</string>
     <string name="confirmation">Are you sure?</string>
     <string name="action_products">All products will be deleted.</string>
     <string name="action_checklists">All checklists will be deleted.</string>

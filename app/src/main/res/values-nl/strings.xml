@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_add_product">Product toevoegen</string>
     <string name="title_checklist">Checklist</string>
-    <string name="title_settings">Instellingen</string>
+    <string name="title_map">Kaart</string>
     <string name="confirmation">Weet je het zeker?</string>
     <string name="action_products">Alle producten zullen worden verwijderd.</string>
     <string name="action_checklists">Alle checklisten zullen worden verwijderd.</string>

@@ -4,6 +4,9 @@ plugins {
 
     // Add the KAPT compiler plugin for Room.
     id 'kotlin-kapt'
+
+    // Add the Secrets Gradle Plugin, to be able to store the API key in local.properties.
+    id 'com.google.secrets_gradle_plugin' version '0.5'
 }
 
 android {
@@ -76,4 +79,10 @@ dependencies {
     // Add ZXing Android Embedded, the barcode scanning library.
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0'
     implementation 'com.google.zxing:core:3.4.0'
+
+    // Add a Google Play Services dependency, which exposes the Google Maps and Location Services APIs.
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
+    // Add the Google Maps location dependency.
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }
