@@ -67,7 +67,7 @@ class ChecklistFragment : Fragment() {
         ))
 
         // Create an OnDateSetListener.
-        val listener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val listener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, monthOfYear)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -84,7 +84,7 @@ class ChecklistFragment : Fragment() {
 
         // Upon a click on the date button, show the DatePickerDialog and point to today's date.
         binding.btnDate.setOnClickListener {
-            activity?.let { it ->
+            activity?.let {
                 val year = calendar.get(Calendar.YEAR)
                 val month = calendar.get(Calendar.MONTH)
                 val day = calendar.get(Calendar.DAY_OF_MONTH)
