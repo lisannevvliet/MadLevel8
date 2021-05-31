@@ -37,11 +37,7 @@ class ChecklistFragment : Fragment() {
     // Retrieve today's date.
     var date = SimpleDateFormat("d MMMM yyyy", locale).format(calendar.time)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment.
         _binding = FragmentChecklistBinding.inflate(inflater, container, false)
         return binding.root
