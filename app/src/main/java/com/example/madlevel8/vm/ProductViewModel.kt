@@ -72,7 +72,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         CoroutineScope(Dispatchers.IO).launch { productRepository.insertProduct(product) }
     }
 
-    // Delete the product from the database upon a swipe to the left, with an option to undo the action.
+    // Delete the product from the database, with an option to undo the action.
     fun deleteProduct(position: Int, rvProducts: RecyclerView) {
         // Backup the products, in case the undo button is clicked.
         backupProducts.clear()

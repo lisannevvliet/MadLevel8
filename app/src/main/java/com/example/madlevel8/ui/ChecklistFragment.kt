@@ -123,6 +123,8 @@ class ChecklistFragment : Fragment() {
                         // Show a Snackbar message which says that the action has been cancelled.
                         Snackbar.make(binding.btnDate, R.string.cancelled, Snackbar.LENGTH_SHORT).show()
                     }
+                    // Prevent the AlertDialog from being closed upon a click outside of the AlertDialog.
+                    .setCancelable(false)
                     .create()
                     .show()
                 true
