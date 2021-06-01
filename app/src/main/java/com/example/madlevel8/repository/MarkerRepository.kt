@@ -20,7 +20,7 @@ class MarkerRepository(context: Context) {
 
     suspend fun insertMarker(marker: Marker) = markerDao.insertMarker(marker)
 
-    suspend fun deleteMarker(position: String) = markerDao.deleteMarker(position)
+    suspend fun deleteMarker(address: String) = markerDao.deleteMarker(address)
 
     suspend fun deleteAllMarkers() = markerDao.deleteAllMarkers()
 }

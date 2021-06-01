@@ -8,8 +8,8 @@ import com.example.madlevel8.model.Marker
 @Dao
 interface MarkerDao {
 
-    @Query("SELECT COUNT(*) FROM Marker WHERE position = :position")
-    suspend fun existMarker(position: String): Int
+    @Query("SELECT COUNT(*) FROM Marker WHERE address = :address")
+    suspend fun existMarker(address: String): Int
 
     @Query("SELECT * FROM Marker")
     suspend fun getAllMarkers(): List<Marker>
@@ -17,11 +17,8 @@ interface MarkerDao {
     @Insert
     suspend fun insertMarker(marker: Marker)
 
-    /*@Delete
-    suspend fun deleteMarker(marker: Marker)*/
-
-    @Query("DELETE FROM Marker WHERE position = :position")
-    suspend fun deleteMarker(position: String)
+    @Query("DELETE FROM Marker WHERE address = :address")
+    suspend fun deleteMarker(address: String)
 
     @Query("DELETE FROM Marker")
     suspend fun deleteAllMarkers()

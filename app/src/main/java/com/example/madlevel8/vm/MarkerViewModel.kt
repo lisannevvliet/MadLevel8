@@ -50,15 +50,25 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    // Add the marker to the database if it does not already exist.
-    fun insertMarker(marker: Marker, view: View) {
-        CoroutineScope(Dispatchers.IO).launch {
+    // Add the marker to the map and database if it does not already exist.
+    fun insertMarker(marker: Marker, map: GoogleMap, markerOptions: MarkerOptions, view: View) {
+        CoroutineScope(Dispatchers.Main).launch {
             // Check if there is already an entry of the specified marker in the database.
-            val exists = markerRepository.existMarker(marker.position) != 0
+            val exists = withContext(Dispatchers.IO) { markerRepository.existMarker(marker.address) != 0 }
 
             // If there is not an entry in the database yet, create an entry.
             if (!exists) {
-                markerRepository.insertMarker(marker)
+                // Add the marker to the database.
+                withContext(Dispatchers.IO) { markerRepository.insertMarker(marker) }
+
+                // Add the marker to the map.
+                val marker = map.addMarker(markerOptions)
+
+                // Make the marker removable.
+                marker.isDraggable = true
+
+                // Show the info window of the marker.
+                marker.showInfoWindow()
 
                 // Show a Snackbar message which says that the marker has been added.
                 Snackbar.make(view, getApplication<Application>().resources.getString(R.string.added, marker.title), Snackbar.LENGTH_SHORT).show()
@@ -66,9 +76,19 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    // Delete the marker from the database.
-    fun deleteMarker(marker: String) {
-        CoroutineScope(Dispatchers.IO).launch { markerRepository.deleteMarker(marker) }
+    // Delete the marker from the map and database.
+    fun deleteMarker(marker: com.google.android.gms.maps.model.Marker, view: View) {
+        // Remove the marker from the map.
+        marker.remove()
+
+        // Create a marker object from the Google Maps marker.
+        val marker = Marker(marker.position.toString(), marker.title, marker.snippet)
+
+        // Delete the marker from the database.
+        CoroutineScope(Dispatchers.IO).launch { markerRepository.deleteMarker(marker.address) }
+
+        // Show a Snackbar message which says that the marker has been deleted.
+        Snackbar.make(view, getApplication<Application>().resources.getString(R.string.deleted, marker.title), Snackbar.LENGTH_SHORT).show()
     }
 
     // Delete all markers in the database, with an option to undo the action.

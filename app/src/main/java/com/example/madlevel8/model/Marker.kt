@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class Marker(
 
-    @PrimaryKey
     val position: String,
     val title: String,
+    @PrimaryKey
     val address: String
 )

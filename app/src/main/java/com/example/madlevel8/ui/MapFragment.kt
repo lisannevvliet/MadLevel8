@@ -141,7 +141,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         }
     }
 
+    // Prepare the map with markers and OnClickListeners once it has fully loaded.
     override fun onMapReady(googleMap: GoogleMap) {
+        // Store the GoogleMap object.
         map = googleMap
 
         // Retrieve all markers from the database and add them to the map.
@@ -166,19 +168,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             addMarker(it.latLng, it.name)
         }
 
-        // Delete a marker upon a long click on a marker.
+        // Delete a marker from the map and database upon a long click.
         map.setOnMarkerDragListener(object : OnMarkerDragListener {
             override fun onMarkerDragStart(marker: Marker) {
-                // Remove the marker from the map.
-                marker.remove()
-
-                // val marker = com.example.madlevel8.model.Marker(marker.position.toString(), marker.title, marker.snippet)
-
-                // Delete the marker from the database.
-                viewModel.deleteMarker(marker.position.toString())
-
-                // Show a Snackbar message which says that the marker has been deleted.
-                Snackbar.make(requireView(), getString(R.string.deleted, marker.title), Snackbar.LENGTH_SHORT).show()
+                viewModel.deleteMarker(marker, requireView())
             }
 
             override fun onMarkerDragEnd(marker: Marker) { }
@@ -187,6 +180,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         })
     }
 
+    // Add a marker to the map and database.
     private fun addMarker(position: LatLng, title: String = "") {
         // Create a MarkerOptions object and set the marker position.
         val markerOptions = MarkerOptions().position(position)
@@ -213,48 +207,47 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             // Store the input of the EditText.
             val input = EditText(context)
 
-            AlertDialog.Builder(context)
+            // Show an AlertDialog to ask what the marker title should be.
+            val dialog = AlertDialog.Builder(context)
                 .setTitle(R.string.add_marker_name)
                 .setView(input)
-                .setPositiveButton(R.string.add) { _, _ ->
-                    // Retrieve the input of the EditText.
-                    val title = input.text.toString()
-
-                    // Set the marker title.
-                    markerOptions.title(title)
-
-                    // Add the marker to the map.
-                    val marker = map.addMarker(markerOptions)
-
-                    // Make the marker removable.
-                    marker.isDraggable = true
-
-                    // Show the info window of the marker.
-                    marker.showInfoWindow()
-
-                    // Add the marker to the database.
-                    viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address), requireView())
-                }
+                .setPositiveButton(R.string.add, null)
                 .setNegativeButton(R.string.cancel, null)
                 // Prevent the AlertDialog from being closed upon a click outside of the AlertDialog.
                 .setCancelable(false)
                 .create()
-                .show()
+
+            // Add the marker to the map and database upon a click on the add button.
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                    // Retrieve the input of the EditText.
+                    val title = input.text.toString()
+
+                    // Check if the input of the EditText filled in.
+                    if (title.isBlank()) {
+                        // Show a Snackbar message which says that the marker name needs to be filled in.
+                        Snackbar.make(requireView(), getString(R.string.empty_marker_name), Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        // Set the marker title.
+                        markerOptions.title(title)
+
+                        // Add the marker to the map and database.
+                        viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address), map, markerOptions, requireView())
+
+                        // Close the AlertDialog.
+                        dialog.dismiss()
+                    }
+                }
+            }
+
+            // Show the AlertDialog.
+            dialog.show()
         } else {
             // Set the marker title.
             markerOptions.title(title)
 
-            // Add the marker to the map.
-            val marker = map.addMarker(markerOptions)
-
-            // Make the marker removable.
-            marker.isDraggable = true
-
-            // Show the info window of the marker.
-            marker.showInfoWindow()
-
-            // Add the marker to the database.
-            viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address), requireView())
+            // Add the marker to the map and database.
+            viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address), map, markerOptions, requireView())
         }
     }
 
