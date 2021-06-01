@@ -46,4 +46,6 @@
     <string name="hybrid_map">Hybride kaart</string>
     <string name="satellite_map">Satellietkaart</string>
     <string name="terrain_map">Terreinkaart</string>
+    <string name="add_marker_name">Voeg een markeringsnaam toe</string>
+    <string name="cancel">Annuleren</string>
 </resources>

@@ -207,33 +207,43 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
         // If the marker is not a point of interest, show an EditText to retrieve a custom title.
         if (title.isBlank()) {
+            // Store the input of the EditText.
+            val input = EditText(context)
+
             AlertDialog.Builder(context)
-                .setTitle("Title")
-                .setMessage("Message")
-                .setView(EditText(context))
-                .setPositiveButton("OK") { _, _ ->
-                    // Retrieve the custom title from the EditText.
-                    val title = EditText(context).text.toString()
+                .setTitle(R.string.add_marker_name)
+                .setView(input)
+                .setPositiveButton(R.string.add) { _, _ ->
+                    // Retrieve the input of the EditText.
+                    val title = input.text.toString()
                     // Set the marker title.
                     markerOptions.title(title)
-                    // Add the marker to the map and make it removable.
-                    map.addMarker(markerOptions).isDraggable = true
+                    // Add the marker to the map.
+                    val marker = map.addMarker(markerOptions)
+                    // Make the marker removable.
+                    marker.isDraggable = true
+                    // Show the info window of the marker.
+                    marker.showInfoWindow()
                     // Add the marker to the database.
                     viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address))
                 }
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.cancel, null)
+                // Prevent the AlertDialog from being closed upon a click outside of the AlertDialog.
+                .setCancelable(false)
                 .create()
                 .show()
         } else {
             // Set the marker title.
             markerOptions.title(title)
-            // Add the marker to the map and make it removable.
-            map.addMarker(markerOptions).isDraggable = true
+            // Add the marker to the map.
+            val marker = map.addMarker(markerOptions)
+            // Make the marker removable.
+            marker.isDraggable = true
+            // Show the info window of the marker.
+            marker.showInfoWindow()
             // Add the marker to the database.
             viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address))
         }
-
-        // marker.showInfoWindow()
     }
 
     override fun onMarkerClick(p0: Marker?) = false
