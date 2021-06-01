@@ -50,9 +50,20 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    // Add the marker to the database.
-    fun insertMarker(marker: Marker) {
-        CoroutineScope(Dispatchers.IO).launch { markerRepository.insertMarker(marker) }
+    // Add the marker to the database if it does not already exist.
+    fun insertMarker(marker: Marker, view: View) {
+        CoroutineScope(Dispatchers.IO).launch {
+            // Check if there is already an entry of the specified marker in the database.
+            val exists = markerRepository.existMarker(marker.position) != 0
+
+            // If there is not an entry in the database yet, create an entry.
+            if (!exists) {
+                markerRepository.insertMarker(marker)
+
+                // Show a Snackbar message which says that the marker has been added.
+                Snackbar.make(view, getApplication<Application>().resources.getString(R.string.added, marker.title), Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 
     // Delete the marker from the database.

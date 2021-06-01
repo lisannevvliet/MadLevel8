@@ -14,6 +14,8 @@ class MarkerRepository(context: Context) {
         markerDao = markerRoomDatabase!!.markerDao()
     }
 
+    suspend fun existMarker(position: String) = markerDao.existMarker(position)
+
     suspend fun getAllMarkers() = markerDao.getAllMarkers()
 
     suspend fun insertMarker(marker: Marker) = markerDao.insertMarker(marker)

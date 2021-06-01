@@ -233,10 +233,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                     marker.showInfoWindow()
 
                     // Add the marker to the database.
-                    viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address))
-
-                    // Show a Snackbar message which says that the marker has been added.
-                    Snackbar.make(requireView(), getString(R.string.added, marker.title), Snackbar.LENGTH_SHORT).show()
+                    viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address), requireView())
                 }
                 .setNegativeButton(R.string.cancel, null)
                 // Prevent the AlertDialog from being closed upon a click outside of the AlertDialog.
@@ -257,10 +254,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             marker.showInfoWindow()
 
             // Add the marker to the database.
-            viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address))
-
-            // Show a Snackbar message which says that the marker has been added.
-            Snackbar.make(requireView(), getString(R.string.added, marker.title), Snackbar.LENGTH_SHORT).show()
+            viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address), requireView())
         }
     }
 

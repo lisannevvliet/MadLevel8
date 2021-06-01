@@ -8,6 +8,9 @@ import com.example.madlevel8.model.Marker
 @Dao
 interface MarkerDao {
 
+    @Query("SELECT COUNT(*) FROM Marker WHERE position = :position")
+    suspend fun existMarker(position: String): Int
+
     @Query("SELECT * FROM Marker")
     suspend fun getAllMarkers(): List<Marker>
 
