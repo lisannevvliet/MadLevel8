@@ -216,14 +216,19 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                 .setPositiveButton(R.string.add) { _, _ ->
                     // Retrieve the input of the EditText.
                     val title = input.text.toString()
+
                     // Set the marker title.
                     markerOptions.title(title)
+
                     // Add the marker to the map.
                     val marker = map.addMarker(markerOptions)
+
                     // Make the marker removable.
                     marker.isDraggable = true
+
                     // Show the info window of the marker.
                     marker.showInfoWindow()
+
                     // Add the marker to the database.
                     viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address))
                 }
@@ -235,12 +240,16 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         } else {
             // Set the marker title.
             markerOptions.title(title)
+
             // Add the marker to the map.
             val marker = map.addMarker(markerOptions)
+
             // Make the marker removable.
             marker.isDraggable = true
+
             // Show the info window of the marker.
             marker.showInfoWindow()
+
             // Add the marker to the database.
             viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address))
         }
