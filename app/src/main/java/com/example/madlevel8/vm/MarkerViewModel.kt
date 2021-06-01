@@ -44,8 +44,8 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
                 // Change the color of the default marker to green.
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 
-                // Add the marker to the map.
-                map.addMarker(markerOptions)
+                // Add the marker to the map and make it removable.
+                map.addMarker(markerOptions).isDraggable = true
             }
         }
     }

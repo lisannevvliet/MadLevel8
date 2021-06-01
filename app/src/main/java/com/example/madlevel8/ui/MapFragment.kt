@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.EditText
 import androidx.core.app.ActivityCompat
@@ -217,7 +216,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                     val title = EditText(context).text.toString()
                     // Set the marker title.
                     markerOptions.title(title)
-                    // Add the marker to the map.
+                    // Add the marker to the map and make it removable.
                     map.addMarker(markerOptions).isDraggable = true
                     // Add the marker to the database.
                     viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address))
@@ -228,7 +227,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         } else {
             // Set the marker title.
             markerOptions.title(title)
-            // Add the marker to the map.
+            // Add the marker to the map and make it removable.
             map.addMarker(markerOptions).isDraggable = true
             // Add the marker to the database.
             viewModel.insertMarker(com.example.madlevel8.model.Marker(position.toString(), title, address))
