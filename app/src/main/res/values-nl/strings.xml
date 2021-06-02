@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Vegable</string>
-    <string name="title_home">Home</string>
+    <string name="title_products">Producten</string>
     <string name="title_add_product">Product toevoegen</string>
     <string name="title_checklist">Checklijst</string>
     <string name="title_map">Kaart</string>

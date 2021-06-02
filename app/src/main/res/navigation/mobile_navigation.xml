@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_products">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.madlevel8.ui.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/navigation_products"
+        android:name="com.example.madlevel8.ui.ProductsFragment"
+        android:label="@string/title_products"
+        tools:layout="@layout/fragment_products" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_add_product"
+            android:id="@+id/action_navigation_products_to_navigation_add_product"
             app:destination="@id/navigation_add_product" />
     </fragment>
 

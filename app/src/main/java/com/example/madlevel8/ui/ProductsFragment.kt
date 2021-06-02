@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madlevel8.R
-import com.example.madlevel8.databinding.FragmentHomeBinding
+import com.example.madlevel8.databinding.FragmentProductsBinding
 import com.example.madlevel8.vm.ProductViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.integration.android.IntentIntegrator
@@ -23,16 +23,16 @@ import com.google.zxing.integration.android.IntentIntegrator
 const val bundleKey = ""
 const val requestKey = ""
 
-class HomeFragment : Fragment() {
+class ProductsFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: ProductViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment.
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentProductsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
 
         // Navigate to the AddProductFragment upon a click on the floating action button.
         binding.fabAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_navigation_add_product)
+            findNavController().navigate(R.id.action_navigation_products_to_navigation_add_product)
         }
     }
 
