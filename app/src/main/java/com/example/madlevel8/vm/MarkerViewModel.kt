@@ -77,18 +77,51 @@ class MarkerViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     // Delete the marker from the map and database.
-    fun deleteMarker(marker: com.google.android.gms.maps.model.Marker, view: View) {
+    fun deleteMarker(marker: com.google.android.gms.maps.model.Marker, view: View, map: GoogleMap) {
         // Remove the marker from the map.
         marker.remove()
 
-        // Create a marker object from the Google Maps marker.
-        val marker = Marker(marker.position.toString(), marker.title, marker.snippet)
+        // Show a Snackbar message which says that the marker has been deleted, with an undo option to undo the action.
+        Snackbar.make(view, getApplication<Application>().resources.getString(R.string.deleted, marker.title), Snackbar.LENGTH_LONG)
+            .addCallback(object : Snackbar.Callback() {
+                override fun onDismissed(snackbar: Snackbar, event: Int) {
+                    when (event) {
+                        DISMISS_EVENT_ACTION -> {
+                            // Create a MarkerOptions object and set the marker position.
+                            val markerOptions = MarkerOptions().position(marker.position)
 
-        // Delete the marker from the database.
-        CoroutineScope(Dispatchers.IO).launch { markerRepository.deleteMarker(marker.address) }
+                            // Set the marker title.
+                            markerOptions.title(marker.title)
 
-        // Show a Snackbar message which says that the marker has been deleted.
-        Snackbar.make(view, getApplication<Application>().resources.getString(R.string.deleted, marker.title), Snackbar.LENGTH_SHORT).show()
+                            // Set the marker snippet to the address.
+                            markerOptions.snippet(marker.snippet)
+
+                            // Change the color of the default marker to green.
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+
+                            // Add the marker to the map.
+                            val marker = map.addMarker(markerOptions)
+
+                            // Make the marker removable.
+                            marker.isDraggable = true
+
+                            // Show the info window of the marker.
+                            marker.showInfoWindow()
+
+                            // Show a Snackbar message which says that the marker has been restored.
+                            Snackbar.make(view, getApplication<Application>().resources.getString(R.string.restored, marker.title), Snackbar.LENGTH_SHORT).show()
+                        } else -> {
+                            // Retrieve the address from the Google Maps marker.
+                            val address = marker.snippet
+
+                            // Permanently delete the marker from the database.
+                            CoroutineScope(Dispatchers.IO).launch { markerRepository.deleteMarker(address) }
+                        }
+                    }
+                }
+            })
+            .setAction(R.string.undo) { }
+            .show()
     }
 
     // Delete all markers in the database, with an option to undo the action.

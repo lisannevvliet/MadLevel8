@@ -171,7 +171,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         // Delete a marker from the map and database upon a long click.
         map.setOnMarkerDragListener(object : OnMarkerDragListener {
             override fun onMarkerDragStart(marker: Marker) {
-                viewModel.deleteMarker(marker, requireView())
+                viewModel.deleteMarker(marker, requireView(), googleMap)
             }
 
             override fun onMarkerDragEnd(marker: Marker) { }
