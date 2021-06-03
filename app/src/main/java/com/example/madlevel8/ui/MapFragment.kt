@@ -132,15 +132,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         }
     }
 
-    // If the ACCESS_FINE_LOCATION permission has been granted, move the camera to the last known location.
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == 1) {
-            if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
-                retrieveLocation()
-            }
-        }
-    }
-
     // Prepare the map with markers and OnClickListeners once it has fully loaded.
     override fun onMapReady(googleMap: GoogleMap) {
         // Store the GoogleMap object.

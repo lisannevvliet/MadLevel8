@@ -59,9 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:backgroundTint="@android:color/darker_gray"
-        android:src="@drawable/ic_barcode_black_24dp"
+        android:src="@drawable/ic_barcode_white_24dp"
         android:text="Button"
-        android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/tilBarcode"
         app:layout_constraintStart_toEndOf="@+id/tilBarcode"
         app:layout_constraintTop_toTopOf="@+id/tilBarcode" />
